@@ -1,0 +1,1 @@
+dart2native bin/main.dart -o bin/slice_cli
