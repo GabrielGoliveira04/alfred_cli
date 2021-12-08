@@ -26,17 +26,14 @@ Future createFile({
   }
 
   Directory dir;
-  if (type == 'atoms' ||
-      type == 'molecules' ||
-      type == 'organisms' ||
-      type == 'template') {
+  if (type == 'atoms' || type == 'molecules' || type == 'organisms' || type == 'template') {
     dir = Directory(path).parent;
   } else {
     dir = Directory(path);
   }
 
   var name = basename(path);
-  var folderPath = '${dir.path}/the_$name/the_$name';
+  var folderPath = '${dir.path}/$name/$name';
 
   ///CREATE WIDGET
   File fileComponent;
@@ -50,18 +47,14 @@ Future createFile({
   output.success('File ${fileComponent.path} created');
 
   fileComponent.writeAsStringSync(generateWidget(WidgetGenerated(
-      packageName: name,
-      name: formatName(name),
-      type: formatName(type),
-      haveWidgetBehaviour: haveWidgetBehaviour)));
+      packageName: name, name: formatName(name), type: formatName(type), haveWidgetBehaviour: haveWidgetBehaviour)));
 
   formatFile(fileComponent);
 
   createTest(
       name: name,
       type: type,
-      content: generateTest(WidgetGenerated(
-          packageName: name, name: formatName(name), type: type)));
+      content: generateTest(WidgetGenerated(packageName: name, name: formatName(name), type: type)));
 }
 
 //Format file
@@ -70,14 +63,13 @@ void formatFile(File file) {
 }
 
 //Creating widget test
-void createTest(
-    {required String name, required String type, required String content}) {
+void createTest({required String name, required String type, required String content}) {
   var dir = Directory('${mainDirectory}test/$type');
   if (!dir.existsSync()) {
     dir.createSync();
   }
 
-  var file = File('${dir.path}/the_$name/the_${name}_widget_test.dart');
+  var file = File('${dir.path}/${name}_widget_test.dart');
   if (!file.existsSync()) {
     file.writeAsStringSync(content);
     output.success('File ${file.path} created');

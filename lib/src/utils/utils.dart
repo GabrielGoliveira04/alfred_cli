@@ -17,6 +17,8 @@ String libPath(String path) {
     return '${mainDirectory}lib/app/$path';
   } else if (Directory('lib/src').existsSync()) {
     return '${mainDirectory}lib/src/$path';
+  } else if (Directory('lib').existsSync()) {
+    return '${mainDirectory}lib/$path';
   } else {
     return '${mainDirectory}lib/app/$path';
   }
